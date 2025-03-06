@@ -179,6 +179,7 @@ with st.expander("多轮对话", expanded=True):
             matches = []
 
         matches = str(matches) if matches else "未找到匹配"
+        print(matches)
 
         # 调用大模型
         answer = ask_zhipu_with_kg(matches, user_text)

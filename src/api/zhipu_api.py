@@ -26,6 +26,7 @@ def ask_zhipu_with_kg(knowledge_graph_context, question, model=MODEL_NAME):
         {"role": "assistant", "content": "我已经获取了知识图谱内容，请告诉我您的问题。"},
         {"role": "user", "content": question}
     ]
+    print(messages)
 
     try:
         response = client.chat.completions.create(
