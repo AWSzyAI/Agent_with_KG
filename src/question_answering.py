@@ -66,6 +66,18 @@ def retrieve_from_graph(graph: nx.Graph, query: str) -> List[Tuple[str, str, str
     """
     matched_nodes = []
     results = []
+    ALL=True
+    if ALL:
+        # 返回所有的三元组
+        for node in graph.nodes:
+            matched_nodes.append(node)
+        for matched_node in matched_nodes:
+            neighbors = list(graph.neighbors(matched_node))
+            for neighbor in neighbors:
+                edge_data = graph.get_edge_data(matched_node, neighbor)
+                edge_label = edge_data.get("label", "connected")
+                results.append((matched_node, edge_label, neighbor))
+        return results
 
     # 1. 找到所有语义上匹配或相似的节点
     for node in graph.nodes:

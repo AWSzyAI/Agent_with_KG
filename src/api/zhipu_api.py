@@ -21,19 +21,12 @@ def ask_zhipu_with_kg(knowledge_graph_context, question, model=MODEL_NAME):
     :return: 智谱AI的回答
     """
     messages = [
-        {
-            "role": "system",
-            "content": (
-                "你是一名专业的知识图谱专家。"
-                "你的可用信息仅限于用户提供的知识图谱内容以及对话上下文。"
-                "请严格根据知识图谱进行回答，如果知识图谱中没有相关信息，请在回答中明确指出。"
-            )
-        },
-        {
-            "role": "user",
-            "content": f"<知识图谱内容>\n{{knowledge_graph_context}}</知识图谱内容> {{question}}"
-        }
+        {"role": "system", "content": "你是一名知识图谱专家，能够结合知识图谱回答用户问题。"},
+        {"role": "user", "content": f"以下是知识图谱内容：\n{knowledge_graph_context}"},
+        {"role": "assistant", "content": "我已经获取了知识图谱内容，请告诉我您的问题。"},
+        {"role": "user", "content": question}
     ]
+
     try:
         response = client.chat.completions.create(
             model=model,
